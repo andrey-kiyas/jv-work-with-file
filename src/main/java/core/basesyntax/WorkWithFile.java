@@ -38,8 +38,8 @@ public class WorkWithFile {
                 buySum += Integer.parseInt(splitedText[PARAM_INDEX]);
             }
         }
-        return "supply," + supplySum + "_"
-                + "buy," + buySum + "_"
+        return "supply," + supplySum + System.lineSeparator()
+                + "buy," + buySum + System.lineSeparator()
                 + "result," + (supplySum - buySum);
     }
 
@@ -47,15 +47,7 @@ public class WorkWithFile {
         File file = new File(toFileName);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
             Files.writeString(Path.of(toFileName), "");
-            System.out.println(file.length());
-            String[] splittedReport = report.split("_");
-            for (int i = 0; i < splittedReport.length; i++) {
-                if (i == 0) {
-                    bufferedWriter.write(splittedReport[i]);
-                } else {
-                    bufferedWriter.write(System.lineSeparator() + splittedReport[i]);
-                }
-            }
+            bufferedWriter.write(report);
         } catch (IOException e) {
             throw new RuntimeException("Can't write data to file: " + file.getName(), e);
         }
